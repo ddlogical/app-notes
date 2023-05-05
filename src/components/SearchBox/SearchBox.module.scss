@@ -1,0 +1,28 @@
+@import '../../variables.scss';
+
+.searchBox {
+  width: 25%;
+  height: 3rem;
+  align-self: center;
+  border: none;
+  border-radius: 5px;
+  padding: 0 5px;
+
+  &::placeholder {
+    text-align: center;
+    background-image: url('./search.svg');
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position: calc(50% - 3.8rem) center;
+  }
+
+  &:focus {
+    outline: none;
+  }
+  
+  &:focus::placeholder {
+    color: transparent;
+    background-image: none;
+  }
+ 
+}

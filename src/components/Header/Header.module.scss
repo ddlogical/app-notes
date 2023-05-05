@@ -1,0 +1,28 @@
+@import '../../variables.scss';
+
+.header {
+  height: 5rem;
+  background-color: $color-primary;
+  display: flex;
+  padding: 5px;
+  justify-content: space-between;
+
+  &Buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  &Button {
+    border: none;
+    background-color: $color-white;
+    padding: 0 1.2rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover {
+      background-color: $color-secondary;
+    }
+  }
+}
