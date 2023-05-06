@@ -22,7 +22,7 @@
     transition: all .2s;
 
     &:hover {
-      background-color: $color-secondary;
+      transform: scale(1.05);
     }
   }
 }

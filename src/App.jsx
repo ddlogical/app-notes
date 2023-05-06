@@ -6,8 +6,10 @@ function App() {
     <div className='App'>
       <div className='container'>
         <Header />
-        <Sidebar />
-        <Outlet />
+        <div className='content'>
+          <Sidebar />
+          <Outlet />
+        </div>
       </div>
     </div>
   );
