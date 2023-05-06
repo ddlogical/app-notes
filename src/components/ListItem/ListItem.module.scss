@@ -1,0 +1,21 @@
+@import '../../variables.scss';
+
+.listItem {
+  cursor: pointer;
+  transition: all .2s;
+
+  &Content {
+    margin-left: 3rem;
+    padding: .8rem 0;
+    border-bottom: $border-gray;
+  }
+
+  &:hover {
+    background-color: #e0e0de;
+    border-bottom: none;
+  }
+
+  & span {
+    margin-right: 1rem;
+  }
+}
