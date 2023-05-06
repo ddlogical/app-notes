@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import './index.scss';
 import App from './App';
+import Workspace from './components/Workspace/Workspace';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -16,11 +17,11 @@ const router = createBrowserRouter([
       },
       {
         path: "notes",
-        element: <div>Hi empty!</div>,
+        element: <Workspace type="empty" />,
       },
       {
         path: "notes/:noteId",
-        element: <div>Hi!</div>,
+        element: <Workspace />,
       },
     ],
   },

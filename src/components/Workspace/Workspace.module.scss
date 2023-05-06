@@ -1,0 +1,18 @@
+@import '../../variables.scss';
+
+.workSpace {
+  flex: 0 2 75%;
+  border-left: $border-gray;
+  min-height: calc(100vh - 5rem);
+
+  &Date {
+    text-align: center;
+    letter-spacing: 1px;
+    color: $color-primary-dark;
+    padding: 1rem 0;
+  }
+
+  &Text {
+    padding: 1rem 5rem 0;
+  }
+}
