@@ -28,7 +28,7 @@ function Workspace({type}) {
     if(edit) {
       visibleElem = <textarea 
       className={styles.workSpaceTextEdit}
-      value={noteData.markdown ? noteData.markdown : ''} 
+      value={noteData ? noteData.markdown : ''} 
       onChange={handleMarkdownChange}
       autoFocus
       ></textarea>

@@ -16,7 +16,7 @@ function openDB() {
 
     request.onupgradeneeded = function(event) {
       const db = event.target.result;
-      db.createObjectStore(storeName, { autoIncrement: true });
+      db.createObjectStore(storeName, { keyPath: 'id', autoIncrement: true });
     };
   });
 }
@@ -27,9 +27,7 @@ function addData(data) {
       .then(db => {
         const transaction = db.transaction([storeName], 'readwrite');
         const objectStore = transaction.objectStore(storeName);
-
-        const request = objectStore.put(data);
-
+        const request = objectStore.add(data);
         request.onsuccess = function(event) {
           resolve();
         };

@@ -22,19 +22,21 @@ function IndexeddbWrapper() {
 
   useEffect(() => {
     if(edit) {
-      editData(data[noteId - 1], noteId - 1)
+      editData(data[noteId - 1])
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   useEffect(() => {
     if(add) {
+      changeStatus('add');
       const date = new Date();
+      console.log(data);
       addData({date: date, markdown: ''}).then(() => {
         getAllData().then(data => {
+          console.log(data);
           changeData(data);
           navigate(`/notes/${data.length}`);
-          changeStatus('add');
           if (!edit) {
             changeStatus('edit');
           }
