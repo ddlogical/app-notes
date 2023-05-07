@@ -4,6 +4,21 @@
   flex: 0 0 25%;
   height: calc(100vh - 5rem);
   overflow-y:scroll;
+  background-color: $color-white;
+  transition: all .2s;
+
+  @media only screen and (max-width: $bp-large) {
+    position: absolute;
+    transform: translateX(-100%);
+    flex: 0 0 40%;
+  }
+  @media only screen and (max-width: $bp-medium) {
+    flex: 0 0 100%;
+  }
+
+  &:hover {
+    transform: translateX(0);
+  }
 
   &Content {
     border-right: $border-gray;
@@ -19,12 +34,41 @@
   }
    
   &::-webkit-scrollbar-thumb {
-    background-color: $color-primary;    /* цвет бегунка */
-    border-radius: 20px;       /* округлось бегунка */
-    border: 5px solid #fff;  /* отступ вокруг бегунка */
+    background-color: $color-primary; 
+    border-radius: 20px;     
+    border: 5px solid #fff; 
   }
 
   &List {
     list-style: none;
+  }
+
+  &Shown {
+    display: none;
+
+    @media only screen and (max-width: $bp-large) {
+      display: block;
+      position: fixed;
+      top: 5.5rem;
+      right: 1rem;
+      border: none;
+      background-color: transparent;
+      z-index: 2000;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    @media only screen and (max-width: $bp-medium) {
+      right: 2rem;
+    }
+  }
+}
+
+.menuShown {
+  @media only screen and (max-width: $bp-large) {
+    position:static;
+    transform: translateX(0%);
   }
 }
