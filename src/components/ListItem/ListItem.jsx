@@ -10,6 +10,18 @@ function ListItem({dataObj, id}) {
   const dataTextArr = dataObj.markdown.trim().split('\n').filter(elem => elem);
   const dataHeading = dataTextArr[0] ? dataTextArr[0].slice(0, 20) + '...' : '';
   const dataText = dataTextArr[1] ? dataTextArr[1].slice(0, 16) + '...' : '';
+  const today = new Date();
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
+  const timeAfterMidnight = today - todayMidnight;
+  const timeDiff = today - dataObj.date;
+  let date;
+
+  if (timeDiff > timeAfterMidnight) {
+    date = dataObj.date.toLocaleString("en-US", { year: '2-digit', month: 'numeric', day: 'numeric' });
+  } else {
+    date = dataObj.date.toLocaleString("en-US", { hour: 'numeric', minute: 'numeric', hour12: true });
+  }
+  
 
   const clickHandler = (e) => {
     e.stopPropagation();
@@ -22,7 +34,7 @@ function ListItem({dataObj, id}) {
     <NavLink to={`/notes/${id}`} className={({ isActive }) => isActive ? styles.listItemActive : ""}>
       <div className={styles.listItemContent}>
         <h3>{dataHeading}</h3>
-        <p><span>{dataObj.date.toLocaleString("en-US", {hour: 'numeric', minute: 'numeric', hour12: true})}</span>{dataText}</p>
+        <p><span>{date}</span>{dataText}</p>
       </div>
     </NavLink>
   </li>

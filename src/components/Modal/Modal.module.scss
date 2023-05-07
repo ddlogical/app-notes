@@ -1,0 +1,64 @@
+@import '../../variables.scss';
+
+.modal {
+  height: 100vh;
+  background-color: rgba($color-black, .95);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5000;
+  width: 100%;
+  transition: all .3s;
+
+  @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background-color: rgba($color-black, .3);
+  }
+
+  &Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $color-white;
+    padding: 2rem;
+    font-size: 3rem;
+    text-align: center;
+    border-radius: 5px;
+
+    & > div {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+  }
+
+  & p {
+    margin-bottom: 3rem;
+  }
+
+  &ButtonConfirm,
+  &ButtonRefuse {
+    cursor: pointer;
+    box-shadow: 1px 0 5px $color-black;
+    font-size: 2rem;
+    border: none;
+    transition: all .2s;
+
+    &:hover {
+      outline: none;
+      border: none;
+      transform: scale(1.05);
+    }
+  }
+
+  &ButtonConfirm {
+    padding: 1rem 2rem;
+  }
+
+  &ButtonRefuse {
+    padding: 1rem 2.3rem;
+  }
+
+}

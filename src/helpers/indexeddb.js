@@ -49,7 +49,7 @@ function editData(newData, key)  {
         const transaction = db.transaction([storeName], 'readwrite');
         const objectStore = transaction.objectStore(storeName);
 
-        const request = objectStore.put(newData, key);
+        const request = objectStore.put(newData);
 
         request.onsuccess = function(event) {
           resolve();
@@ -89,14 +89,14 @@ function getAllData(data) {
   });
 }
 
-function deleteData(key) {
+function deleteData(data) {
   return new Promise((resolve, reject) => {
     openDB()
       .then(db => {
         const transaction = db.transaction([storeName], 'readwrite');
         const objectStore = transaction.objectStore(storeName);
 
-        const request = objectStore.delete(key);
+        const request = objectStore.delete(data.id);
 
         request.onsuccess = function(event) {
           resolve();
