@@ -1,16 +1,15 @@
-import { Outlet } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Sidebar from './components/Sidebar';
+import IndexeddbWrapper from "./components/IndexeddbWrapper/IndexeddbWrapper";
+import { StatusContextProvider } from "./context/statusContext";
+import { DataContextProvider } from "./context/dataContext";
+
 function App() {
   return (
     <div className='App'>
-      <div className='container'>
-        <Header />
-        <div className='content'>
-          <Sidebar />
-          <Outlet />
-        </div>
-      </div>
+      <DataContextProvider>
+        <StatusContextProvider>
+          <IndexeddbWrapper />
+        </StatusContextProvider>
+      </DataContextProvider>
     </div>
   );
 }

@@ -14,5 +14,17 @@
 
   &Text {
     padding: 1rem 5rem 0;
+    font-size: 1.8rem;
+  }
+
+  &TextEdit {
+    resize: none;
+    border: none;
+    outline: none;
+    cursor: auto;
+    width: 100%;
+    min-height: calc(100vh - 9.7rem);
+    padding-left: 5rem;
+    font-size: 1.8rem;
   }
 }

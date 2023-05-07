@@ -1,12 +1,36 @@
 import styles from './ListItem.module.scss';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
+import { StatusContext } from '../../context/statusContext';
+import { useContext } from 'react';
 
-function ListItem() {
-  return <li className={styles.listItem}>
-    <div className={styles.listItemContent}>
-      <h3>Wow, what a cool not...</h3>
-      <p><span>12:17 PM</span>This is an amazi...</p>
-    </div>
+
+function ListItem({dataObj, id}) {
+  const {edit, changeStatus} = useContext(StatusContext);
+  const dataTextArr = dataObj.markdown.trim().split('\n').filter(elem => elem);
+  const dataHeading = dataTextArr[0] ? dataTextArr[0].slice(0, 20) + '...' : '';
+  const dataText = dataTextArr[1] ? dataTextArr[1].slice(0, 16) + '...' : '';
+
+  const clickHandler = (e) => {
+    e.stopPropagation();
+    if(edit) {
+      changeStatus('edit');
+    }
+  }
+
+  return <li className={styles.listItem} onClick={clickHandler}>
+    <NavLink to={`/notes/${id}`} className={({ isActive }) => isActive ? styles.listItemActive : ""}>
+      <div className={styles.listItemContent}>
+        <h3>{dataHeading}</h3>
+        <p><span>{dataObj.date.toLocaleString("en-US", {hour: 'numeric', minute: 'numeric', hour12: true})}</span>{dataText}</p>
+      </div>
+    </NavLink>
   </li>
 }
 
 export default ListItem;
+
+ListItem.propTypes = {
+  dataObj: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
+};
