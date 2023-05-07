@@ -1,9 +1,15 @@
 @import '../../variables.scss';
 
+@import '../../variables.scss';
+
 .workSpace {
   flex: 0 2 75%;
   border-left: $border-gray;
   min-height: calc(100vh - 5rem);
+
+  @media only screen and (max-width: $bp-large) {
+    flex: 1 1 100%;
+  }
 
   &Date {
     text-align: center;
