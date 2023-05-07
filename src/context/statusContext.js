@@ -37,7 +37,6 @@ export function StatusContextProvider(props) {
 
   function changeStatus(actionType) {
     dispatch({type: actionType})
-    // setAdd(prevTheme => prevTheme === true ? false : true);
   }
 
   const contextValue = {
