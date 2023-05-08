@@ -8,8 +8,14 @@ import { useContext } from 'react';
 function ListItem({dataObj, id}) {
   const {edit, changeStatus} = useContext(StatusContext);
   const dataTextArr = dataObj.markdown.trim().split('\n').filter(elem => elem);
-  const dataHeading = dataTextArr[0] ? dataTextArr[0].slice(0, 20) + '...' : '';
-  const dataText = dataTextArr[1] ? dataTextArr[1].slice(0, 16) + '...' : '';
+  let dataHeading = dataTextArr[0] ? dataTextArr[0].slice(0, 20) : '';
+  if (dataHeading.length === 20) {
+    dataHeading += '...';
+  }
+  let dataText = dataTextArr[1] ? dataTextArr[1].slice(0, 16) : '';
+  if (dataText.length === 16) {
+    dataText += '...';
+  }
   const today = new Date();
   const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
   const timeAfterMidnight = today - todayMidnight;

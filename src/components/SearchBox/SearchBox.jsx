@@ -10,7 +10,7 @@ function SearchBox() {
   const debouncedSearchPhrase = useDebounce(searchPhrase, 500);
 
   useEffect(() => {
-    const result = data.filter((elem) => elem.markdown.toLowerCase().includes(debouncedSearchPhrase));
+    const result = data.filter((elem) => elem.markdown.toLowerCase().includes(debouncedSearchPhrase.toLowerCase()));
     changeSearchedData(result);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchPhrase]);
