@@ -4,25 +4,50 @@ import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 import { useContext } from 'react';
 import { StatusContext } from '../../context/statusContext';
+import { SearchContext } from '../../context/searchContext';
+import { MenuContext } from '../../context/menuContext';
+import { DataContext } from '../../context/dataContext';
 import { ModalContext } from '../../context/modalContext';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function Header() {
   const {add, edit, changeStatus} = useContext(StatusContext);
+  const { searchPhrase, searchedData, changeSearchPhrase } = useContext(SearchContext);
+  const { data } = useContext(DataContext);
   const {toggleModal} = useContext(ModalContext);
+  const {menuShown, toggleMenu} = useContext(MenuContext);
+  const navigate = useNavigate();
 
   let { noteId } = useParams();
   const addHandler = () => {
-    if(!add) {
+    if(menuShown) {
+      toggleMenu();
+    }
+    if(searchPhrase !== '' && !add) {
+      changeSearchPhrase('');
+      changeStatus('add');
+    }
+    else if(!add) {
       changeStatus('add');
     }
   }
   const editHandler = () => {
-    if(!edit) {
+    if(menuShown) {
+      toggleMenu();
+    }
+    if(searchPhrase !== '' && !edit) {
+      const index = data.findIndex(elem => elem.id === searchedData[noteId - 1].id);
+      changeSearchPhrase('');
+      navigate(`/notes/${index + 1}`);
+      changeStatus('edit');
+    } else if(!edit) {
       changeStatus('edit');
     }
   }
   const deleteHandler = () => {
+    if(edit) {
+      changeStatus('edit');
+    }
     toggleModal();
   }
 

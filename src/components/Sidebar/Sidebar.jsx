@@ -5,15 +5,16 @@ import Button from '../Button/Button';
 import { DataContext } from '../../context/dataContext';
 import { StatusContext } from '../../context/statusContext';
 import { SearchContext } from '../../context/searchContext';
+import { MenuContext } from '../../context/menuContext';
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Sidebar() {
   const {data} = useContext(DataContext);
   const [dataArr, setDataArr] = useState([]);
-  const [menuShown, setMenuShown] = useState(false);
   const {edit, changeStatus} = useContext(StatusContext);
   const {searchPhrase, searchedData} = useContext(SearchContext);
+  const {menuShown, toggleMenu} = useContext(MenuContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ function Sidebar() {
   }
 
   const clickMenuHandler = () => {
-    setMenuShown(prev => !prev);
+    toggleMenu();
   }
 
   return <>

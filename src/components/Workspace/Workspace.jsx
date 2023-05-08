@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { StatusContext } from '../../context/statusContext';
 import { DataContext } from '../../context/dataContext';
+import { SearchContext } from '../../context/searchContext';
 import MarkdownIt from 'markdown-it';
 import { useState, useEffect, useContext } from 'react';
 
@@ -11,14 +12,17 @@ const md = new MarkdownIt();
 function Workspace({type}) {
   let { noteId } = useParams();
   const {data, changeData} = useContext(DataContext);
+  const {searchPhrase, searchedData} = useContext(SearchContext);
   const [noteData, setNoteData] = useState(null);
   const {edit} = useContext(StatusContext);
 
   useEffect(() => {
-    if(data) {
+    if(searchPhrase !== '') {
+      setNoteData(searchedData[noteId - 1]);
+    } else if(data) {
       setNoteData(data[noteId - 1]);
     }
-  }, [data, noteId]);
+  }, [data, noteId, searchedData, searchPhrase]);
 
   let visibleElem;
 

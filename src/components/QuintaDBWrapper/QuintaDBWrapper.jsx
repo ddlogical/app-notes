@@ -2,14 +2,17 @@ import { Outlet } from 'react-router-dom';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar';
 import Modal from '../Modal/Modal';
-import { addData, editData, deleteData, getAllData } from '../../helpers/indexeddb';
+import getAllRecords from '../../API/getAllRecords';
+import createRecord from '../../API/createRecord';
+import editRecord from '../../API/editRecord';
+import deleteRecord from '../../API/deleteRecord';
 import { StatusContext } from '../../context/statusContext';
 import { SearchContext } from '../../context/searchContext';
 import { DataContext } from '../../context/dataContext';
 import { useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function IndexeddbWrapper() {
+function QuintaDBWrapper() {
   let { noteId } = useParams();
   const {add, edit, delete:deleteActive, changeStatus} = useContext(StatusContext);
   const {data, changeData} = useContext(DataContext);
@@ -17,9 +20,10 @@ function IndexeddbWrapper() {
   const navigate = useNavigate();
   
   useEffect(() => {
-    getAllData().then(data => {
-      changeData(data);
-    })
+    getAllRecords().then(response => {
+      const formatedData = response.records.map(elem => ({id: elem.id, date: new Date(elem.values.cnW7DvWRDdMykpbSkxWQuB), markdown: elem.values.dcPSoimCjkmi7cPuOTW495 ? elem.values.dcPSoimCjkmi7cPuOTW495 : ''}))
+      changeData(formatedData.reverse());
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -30,11 +34,12 @@ function IndexeddbWrapper() {
         dataToDelete = searchedData[noteId - 1];
         changeSearchPhrase('');
       }
-      deleteData(dataToDelete).then(() => {
+      deleteRecord(dataToDelete).then(() => {
         changeStatus('delete');
-        getAllData().then(data => {
+        getAllRecords().then(response => {
           navigate(`/notes`);
-          changeData(data);
+          const formatedData = response.records.map(elem => ({id: elem.id, date: new Date(elem.values.cnW7DvWRDdMykpbSkxWQuB), markdown: elem.values.dcPSoimCjkmi7cPuOTW495 ? elem.values.dcPSoimCjkmi7cPuOTW495 : ''}));
+          changeData(formatedData.reverse());
         });
       });
     }
@@ -43,7 +48,7 @@ function IndexeddbWrapper() {
 
   useEffect(() => {
     if(edit) {
-      editData(data[noteId - 1])
+      editRecord(data[noteId - 1]);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -52,14 +57,15 @@ function IndexeddbWrapper() {
     if(add) {
       changeStatus('add');
       const date = new Date();
-      addData({date: date, markdown: ''}).then(() => {
-        getAllData().then(data => {
-          changeData(data);
-          navigate(`/notes/${data.length}`);
+      createRecord({date: date, markdown: ''}).then(()=> {
+        getAllRecords().then(response => {
+          const formatedData = response.records.map(elem => ({id: elem.id, date: new Date(elem.values.cnW7DvWRDdMykpbSkxWQuB), markdown: elem.values.dcPSoimCjkmi7cPuOTW495 ? elem.values.dcPSoimCjkmi7cPuOTW495 : ''}))
+          changeData(formatedData.reverse());
+          navigate(`/notes/${formatedData.length}`);
           if (!edit) {
             changeStatus('edit');
           }
-        })
+        });
       });
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,4 +81,4 @@ return <div className='container'>
   </div>
 }
 
-export default IndexeddbWrapper;
+export default QuintaDBWrapper;
