@@ -5,8 +5,14 @@ import { DataContextProvider } from './context/dataContext';
 import { ModalContextProvider } from './context/modalContext';
 import { SearchContextProvider } from './context/searchContext';
 import { MenuContextProvider } from './context/menuContext';
-{/* <QuintaDBWrapper /> */}
+
 function App() {
+  let Application;
+  if(process.env.REACT_APP_DB === 'QuintaDB') {
+    Application = <QuintaDBWrapper />
+  } else {
+    Application = <IndexeddbWrapper />
+  }
   return (
     <div className='App'>
       <DataContextProvider>
@@ -14,7 +20,7 @@ function App() {
           <ModalContextProvider>
             <SearchContextProvider>
               <MenuContextProvider>
-                <IndexeddbWrapper />
+                {Application}
               </MenuContextProvider>
             </SearchContextProvider>
           </ModalContextProvider>
